@@ -2069,7 +2069,7 @@ var Ls = {
 		"utl_yolo": "YOLO",
 		"utl_done": "fertig",
 
-		"ul_flagblk": "Die Dateien wurden zur Warteschlange hinzugefügt</b><br>jedoch ist up2k gerade in einem anderen Browsertab aktiv.<br>Es wird gewartet, bis diese Aktion abgeschlossen ist.",
+		"ul_flagblk": "Die Dateien wurden zur Warteschlange hinzugefügt</b><br>jedoch ist up2k gerade in einem anderen Browsertab aktiv.<br>Ich warte, bis der Upload abgeschlossen ist.",
 		"ul_btnlk": "Die Serverkonfiguration hat diese Einstellung gesperrt",
 
 		"udt_up": "Upload",
@@ -2191,7 +2191,7 @@ var Ls = {
 		"mm_m3u": "Drücke <code>Eingabe/OK</code> zum Abspielen\nDrücke <code>ESC/Abbrechen</code> zum Bearbeiten",
 		"mp_breq": "Benötigt Firefox 82+ oder Chrome 73+ oder iOS 15+",
 		"mm_bload": "Lädt...",
-		"mm_bconv": "Kovertiere zu {0}, bitte warte...",
+		"mm_bconv": "Konvertiere zu {0}, bitte warte...",
 		"mm_opusen": "Dein Browser kann AAC- / M4A-Dateien nicht abspielen;\nUmwandlung zu Opus ist jetzt aktiv",
 		"mm_playerr": "Wiedergabefehler: ",
 		"mm_eabrt": "Der Wiedergabeversuch wurde abgebrochen",
@@ -2442,7 +2442,7 @@ var Ls = {
 		"u_blankf": 'Diese {0} Dateien (von insgesammt {1}) sind leer; trotzdem hochladen?\n\n',
 		"u_applef": 'Diese {0} Dateien (von insgesammt {1}) sind möglicherweise unerwünscht;\n<code>OK/Eingabe</code> drücken, um die folgenden Dateien zu überspringen.\nDrücke <code>Abbrechen/ESC</code> um sie NICHT zu überspringen und diese AUCH HOCHZULADEN:\n\n',
 		"u_just1": '\nFunktioniert vielleicht besser, wenn du nur eine Datei auswählst',
-		"u_ff_many": "Falls du <b>Linux / MacOS / Android</b> benutzt, <a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1790500\" target=\"_blank\"><em>könnte</em> Firefox crashen!</a> mit diese Menge Dateien.\nFalls das passiert, probier nochmal (oder benutz Chrome).",
+		"u_ff_many": "Falls du <b>Linux / MacOS / Android</b> benutzt, <a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1790500\" target=\"_blank\"><em>könnte</em> Firefox mit dieser Menge an Dateien crashen!</a>\nFalls das passiert, probier nochmal (oder benutz Chrome).",
 		"u_up_life": "Dieser Upload wird vom Server gelöscht\n{0} nachdem er abgeschlossen ist",
 		"u_asku": 'Diese {0} Dateien nach <code>{1}</code> hochladen',
 		"u_unpt": "Du kannst diesen Upload rückgängig machen mit dem 🧯 oben-links",
