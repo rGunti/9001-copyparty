@@ -1898,7 +1898,7 @@ var Ls = {
 			"resw": "horizontale Auflösung",
 			"resh": "vertikale Auflösung",
 			"chs": "Audio Channels",
-			"hz": "Sample Rate"
+			"hz": "Abtastfrequenz"
 		},
 
 		"hks": [
