@@ -3476,6 +3476,8 @@ class Up2k(object):
 
         linked = False
         try:
+            if "reflink" in flags:
+                raise Exception("reflink")
             if not is_mv and not flags.get("dedup"):
                 raise Exception("dedup is disabled in config")
 
@@ -3532,7 +3534,8 @@ class Up2k(object):
 
                 linked = True
         except Exception as ex:
-            self.log("cannot link; creating copy: " + repr(ex))
+            if str(ex) != "reflink":
+                self.log("cannot link; creating copy: " + repr(ex))
             if bos.path.isfile(src):
                 csrc = src
             elif fsrc and bos.path.isfile(fsrc):

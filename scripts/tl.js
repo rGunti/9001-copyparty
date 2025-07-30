@@ -364,6 +364,7 @@ var tl_browser = {
 		"ml_drc": "dynamic range compressor",
 
 		"mt_loop": "loop/repeat one song\">🔁",
+		"mt_one": "stop after one song\">1️⃣",
 		"mt_shuf": "shuffle the songs in each folder\">🔀",
 		"mt_aplay": "autoplay if there is a song-ID in the link you clicked to access the server$N$Ndisabling this will also stop the page URL from being updated with song-IDs when playing music, to prevent autoplay if these settings are lost but the URL remains\">a▶",
 		"mt_preload": "start loading the next song near the end for gapless playback\">preload",
@@ -381,6 +382,7 @@ var tl_browser = {
 		"mt_uncache": "clear cache &nbsp;(try this if your browser cached$Na broken copy of a song so it refuses to play)\">uncache",
 		"mt_mloop": "loop the open folder\">🔁 loop",
 		"mt_mnext": "load the next folder and continue\">📂 next",
+		"mt_mstop": "stop playback\">⏸ stop",
 		"mt_cflac": "convert flac / wav to opus\">flac",
 		"mt_caac": "convert aac / m4a to opus\">aac",
 		"mt_coth": "convert all others (not mp3) to opus\">oth",

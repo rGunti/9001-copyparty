@@ -1575,6 +1575,18 @@ class HttpCli(object):
             self.log("inaccessible: %r" % ("/" + self.vpath,))
             raise Pebkac(401, "authenticate")
 
+        if "quota-available-bytes" in props and not self.args.nid:
+            bfree, btot, _ = get_df(vn.realpath, False)
+            if btot:
+                df = {
+                    "quota-available-bytes": str(bfree),
+                    "quota-used-bytes": str(btot - bfree),
+                }
+            else:
+                df = {}
+        else:
+            df = {}
+
         fgen = itertools.chain([topdir], fgen)
         vtop = vjoin(self.args.R, vjoin(vn.vpath, rem))
 
@@ -1617,6 +1629,9 @@ class HttpCli(object):
                     ap = os.path.join(tap, x["vp"])
                 pvs["getcontenttype"] = html_escape(guess_mime(rp, ap))
                 pvs["getcontentlength"] = str(st.st_size)
+            elif df:
+                pvs.update(df)
+                df = {}
 
             for k, v in pvs.items():
                 if k not in props:
@@ -2912,6 +2927,7 @@ class HttpCli(object):
 
         ok, msg = self.asrv.chpw(self.conn.hsrv.broker, self.uname, pwd)
         if ok:
+            self.cbonk(self.conn.hsrv.gpwc, pwd, "pw", "too many password changes")
             ok, msg = self.get_pwd_cookie(pwd)
             if ok:
                 msg = "new password OK"
@@ -2995,12 +3011,20 @@ class HttpCli(object):
             # reset both plaintext and tls
             # (only affects active tls cookies when tls)
             for k in ("cppwd", "cppws") if self.is_https else ("cppwd",):
-                ck = gencookie(k, pwd, self.args.R, False)
+                ck = gencookie(k, pwd, self.args.R, self.args.cookie_lax, False)
                 self.out_headerlist.append(("Set-Cookie", ck))
             self.out_headers.pop("Set-Cookie", None)  # drop keepalive
         else:
             k = "cppws" if self.is_https else "cppwd"
-            ck = gencookie(k, pwd, self.args.R, self.is_https, dur, "; HttpOnly")
+            ck = gencookie(
+                k,
+                pwd,
+                self.args.R,
+                self.args.cookie_lax,
+                self.is_https,
+                dur,
+                "; HttpOnly",
+            )
             self.out_headers["Set-Cookie"] = ck
 
         return dur > 0, msg
@@ -3017,6 +3041,9 @@ class HttpCli(object):
         self.gctx = vpath
         vpath = undot(vpath)
         vfs, rem = self.asrv.vfs.get(vpath, self.uname, False, True)
+        if "nosub" in vfs.flags:
+            raise Pebkac(403, "mkdir is forbidden below this folder")
+
         rem = sanitize_vpath(rem, "/")
         fn = vfs.canonical(rem)
 
@@ -4865,13 +4892,21 @@ class HttpCli(object):
     def tx_svcs(self) -> bool:
         aname = re.sub("[^0-9a-zA-Z]+", "", self.args.vname) or "a"
         ep = self.host
-        host = ep.split(":")[0]
-        hport = ep[ep.find(":") :] if ":" in ep else ""
-        rip = (
-            host
-            if self.args.rclone_mdns or not self.args.zm
-            else self.conn.hsrv.nm.map(self.ip) or host
-        )
+        sep = "]:" if "]" in ep else ":"
+        if sep in ep:
+            host, hport = ep.rsplit(":", 1)
+            hport = ":" + hport
+        else:
+            host = ep
+            hport = ""
+
+        if host.endswith(".local") and self.args.zm and not self.args.rclone_mdns:
+            rip = self.conn.hsrv.nm.map(self.ip) or host
+            if ":" in rip and "[" not in rip:
+                rip = "[%s]" % (rip,)
+        else:
+            rip = host
+
         # safer than html_escape/quotep since this avoids both XSS and shell-stuff
         pw = re.sub(r"[<>&$?`\"']", "_", self.pw or "hunter2")
         vp = re.sub(r"[<>&$?`\"']", "_", self.uparam["hc"] or "").lstrip("/")
@@ -5041,7 +5076,7 @@ class HttpCli(object):
     def setck(self) -> bool:
         k, v = self.uparam["setck"].split("=", 1)
         t = 0 if v in ("", "x") else 86400 * 299
-        ck = gencookie(k, v, self.args.R, False, t)
+        ck = gencookie(k, v, self.args.R, self.args.cookie_lax, False, t)
         self.out_headerlist.append(("Set-Cookie", ck))
         if "cc" in self.ouparam:
             self.redirect("", "?h#cc")
@@ -5053,7 +5088,7 @@ class HttpCli(object):
         for k in ALL_COOKIES:
             if k not in self.cookies:
                 continue
-            cookie = gencookie(k, "x", self.args.R, False)
+            cookie = gencookie(k, "x", self.args.R, self.args.cookie_lax, False)
             self.out_headerlist.append(("Set-Cookie", cookie))
 
         self.redirect("", "?h#cc")
@@ -6137,13 +6172,13 @@ class HttpCli(object):
             self.log("#wow #whoa")
 
         if not self.args.nid:
-            free, total, _ = get_df(abspath, False)
-            if total is not None:
+            free, total, zs = get_df(abspath, False)
+            if total:
                 h1 = humansize(free or 0)
                 h2 = humansize(total)
                 srv_info.append("{} free of {}".format(h1, h2))
-            elif free is not None:
-                srv_info.append(humansize(free, True) + " free")
+            elif zs:
+                self.log("diskfree(%r): %s" % (abspath, zs), 3)
 
         srv_infot = "</span> // <span>".join(srv_info)
 

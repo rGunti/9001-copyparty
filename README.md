@@ -12,7 +12,7 @@ turn almost any device into a file server with resumable uploads/downloads using
 
 📷 **screenshots:** [browser](#the-browser) // [upload](#uploading) // [unpost](#unpost) // [thumbnails](#thumbnails) // [search](#searching) // [fsearch](#file-search) // [zip-DL](#zip-downloads) // [md-viewer](#markdown-viewer)
 
-🎬 **videos:** [upload](https://a.ocv.me/pub/demo/pics-vids/up2k.webm) // [cli-upload](https://a.ocv.me/pub/demo/pics-vids/u2cli.webm) // [race-the-beam](https://a.ocv.me/pub/g/nerd-stuff/cpp/2024-0418-race-the-beam.webm)
+🎬 **videos:** [upload](https://a.ocv.me/pub/demo/pics-vids/up2k.webm) // [cli-upload](https://a.ocv.me/pub/demo/pics-vids/u2cli.webm) // [race-the-beam](https://a.ocv.me/pub/g/nerd-stuff/cpp/2024-0418-race-the-beam.webm) // 👉 **[feature-showcase](https://a.ocv.me/pub/demo/showcase-hq.webm)** ([youtube](https://www.youtube.com/watch?v=15_-hgsX2V0))
 
 made in Norway 🇳🇴
 
@@ -1439,12 +1439,17 @@ if you enable deduplication with `--dedup` then it'll create a symlink instead o
 **warning:** when enabling dedup, you should also:
 * enable indexing with `-e2dsa` or volflag `e2dsa` (see [file indexing](#file-indexing) section below); strongly recommended
 * ...and/or `--hardlink-only` to use hardlink-based deduplication instead of symlinks; see explanation below
+* ...and/or `--reflink` to use CoW/reflink-based dedup (much safer than hardlink, but OS/FS-dependent)
 
 it will not be safe to rename/delete files if you only enable dedup and none of the above; if you enable indexing then it is not *necessary* to also do hardlinks (but you may still want to)
 
 by default, deduplication is done based on symlinks (symbolic links); these are tiny files which are pointers to the nearest full copy of the file
 
-you can choose to use hardlinks instead of softlinks, globally with `--hardlink-only` or volflag `hardlinkonly`;
+you can choose to use hardlinks instead of softlinks, globally with `--hardlink-only` or volflag `hardlinkonly`, and you can choose to use reflinks with `--reflink` or volflag `reflink`
+
+advantages of using reflinks (CoW, copy-on-write):
+* entirely safe (when your filesystem supports it correctly); either file can be edited or deleted without affecting other copies
+* only linux 5.3 or newer, only python 3.14 or newer, only some filesystems (btrfs probably ok, maybe xfs too, but zfs had bugs)
 
 advantages of using hardlinks:
 * hardlinks are more compatible with other software; they behave entirely like regular files
@@ -2022,7 +2027,7 @@ some reverse proxies (such as [Caddy](https://caddyserver.com/)) can automatical
 * **warning:** nginx-QUIC (HTTP/3) is still experimental and can make uploads much slower, so HTTP/1.1 is recommended for now
 * depending on server/client, HTTP/1.1 can also be 5x faster than HTTP/2
 
-for improved security (and a 10% performance boost) consider listening on a unix-socket with `-i unix:770:www:/tmp/party.sock` (permission `770` means only members of group `www` can access it)
+for improved security (and a 10% performance boost) consider listening on a unix-socket with `-i unix:770:www:/dev/shm/party.sock` (permission `770` means only members of group `www` can access it)
 
 example webserver / reverse-proxy configs:
 
@@ -2243,7 +2248,7 @@ NOTE: there used to be an aur package; this evaporated when copyparty was adopte
 
 ## fedora package
 
-does not exist yet;  using the [copr-pypi](https://copr.fedorainfracloud.org/coprs/g/copr/PyPI/) builds is **NOT recommended** because updates can be delayed by [several months](https://github.com/fedora-copr/copr/issues/3056)
+does not exist yet;  there are rumours that it is being packaged! keep an eye on this space...
 
 
 ## nix package

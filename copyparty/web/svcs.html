@@ -36,7 +36,7 @@
             <span class="os lin mac">
                 {% if accs %}<code><b id="pw0">{{ pw }}</b></code>=password, {% endif %}<code><b>mp</b></code>=mountpoint
             </span>
-            <a href="#" id="setpw">use real password</a>
+            {% if accs %}<a href="#" id="setpw">use real password</a>{% endif %}
         </p>
 
 

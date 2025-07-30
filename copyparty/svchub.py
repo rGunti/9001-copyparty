@@ -168,6 +168,7 @@ class SvcHub(object):
         # for non-http clients (ftp, tftp)
         self.bans: dict[str, int] = {}
         self.gpwd = Garda(self.args.ban_pw)
+        self.gpwc = Garda(self.args.ban_pwc)
         self.g404 = Garda(self.args.ban_404)
         self.g403 = Garda(self.args.ban_403)
         self.g422 = Garda(self.args.ban_422, False)

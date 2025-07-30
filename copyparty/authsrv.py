@@ -2124,6 +2124,7 @@ class AuthSrv(object):
         all_mte = {}
         errors = False
         free_umask = False
+        have_reflink = False
         for vol in vfs.all_nodes.values():
             if (self.args.e2ds and vol.axs.uwrite) or self.args.e2dsa:
                 vol.flags["e2ds"] = True
@@ -2206,6 +2207,9 @@ class AuthSrv(object):
 
             if "unlistcr" in vol.flags or "unlistcw" in vol.flags:
                 self.args.have_unlistc = True
+
+            if "reflink" in vol.flags:
+                have_reflink = True
 
             zs = str(vol.flags.get("tcolor", "")).lstrip("#")
             if len(zs) == 3:  # fc5 => ffcc55
@@ -2570,6 +2574,13 @@ class AuthSrv(object):
         if self.idp_err:
             t = "WARNING! The following IdP volumes are mounted below another volume where other users can read and/or write files. This is a SECURITY HAZARD!! When copyparty is restarted, it will not know about these IdP volumes yet. These volumes will then be accessible by an unexpected set of permissions UNTIL one of the users associated with their volume sends a request to the server. RECOMMENDATION: You should create a restricted volume where nobody can read/write files, and make sure that all IdP volumes are configured to appear somewhere below that volume."
             self.log(t + "".join(self.idp_err), 1)
+
+        if have_reflink:
+            t = "WARNING: Reflink-based dedup was requested, but %s. This will not work; files will be full copies instead."
+            if sys.version_info < (3, 14):
+                self.log(t % "your python version is not new enough", 1)
+            if not sys.platform.startswith("linux"):
+                self.log(t % "your OS is not Linux", 1)
 
         self.vfs = vfs
         self.acct = acct

@@ -383,8 +383,10 @@ if (!String.prototype.format)
         });
     };
 
+var have_URL = false;
 try {
     new URL('/a/', 'https://a.com/');
+    have_URL = true;
 }
 catch (ex) {
     console.log('ie11 shim URL()');
@@ -729,6 +731,16 @@ function makeSortable(table, cb) {
             sortTable(table, i, cb);
         };
     }(i));
+}
+
+
+function assert_vp(path) {
+    if (path.indexOf('//') + 1)
+        throw 'nonlocal1: ' + path;
+
+    var o = window.location.origin;
+    if (have_URL && (new URL(path, o)).origin != o)
+        throw 'nonlocal2: ' + path;
 }
 
 

@@ -547,14 +547,15 @@ def get_sects():
             when running behind a reverse-proxy, it's recommended to
             use unix-sockets for improved performance and security;
 
-            \033[32m-i unix:770:www:\033[33m/tmp/a.sock\033[0m listens on \033[33m/tmp/a.sock\033[0m with
-            permissions \033[33m0770\033[0m; only accessible to members of the \033[33mwww\033[0m
-            group. This is the best approach. Alternatively,
+            \033[32m-i unix:770:www:\033[33m/dev/shm/party.sock\033[0m listens on
+            \033[33m/dev/shm/party.sock\033[0m with permissions \033[33m0770\033[0m;
+            only accessible to members of the \033[33mwww\033[0m group.
+            This is the best approach. Alternatively,
 
-            \033[32m-i unix:777:\033[33m/tmp/a.sock\033[0m sets perms \033[33m0777\033[0m so anyone can
-            access it; bad unless it's inside a restricted folder
+            \033[32m-i unix:777:\033[33m/dev/shm/party.sock\033[0m sets perms \033[33m0777\033[0m so anyone
+            can access it; bad unless it's inside a restricted folder
 
-            \033[32m-i unix:\033[33m/tmp/a.sock\033[0m keeps umask-defined permissions
+            \033[32m-i unix:\033[33m/dev/shm/party.sock\033[0m keeps umask-defined permission
             (usually \033[33m0600\033[0m) and the same user/group as copyparty
 
             \033[33m-p\033[0m (tcp ports) is ignored for unix sockets
@@ -872,31 +873,31 @@ def get_sects():
 
             similarly, \033[33m--chmod-d\033[0m and \033[33mchmod_d\033[0m sets the directory/folder perm
 
-            the value is a three-digit octal number such as 755, 750, 644, etc.
+            the value is a three-digit octal number such as \033[32m755\033[0m, \033[32m750\033[0m, \033[32m644\033[0m, etc.
 
             first digit = "User"; permission for the unix-user
             second digit = "Group"; permission for the unix-group
             third digit = "Other"; permission for all other users/groups
 
             for files:
-            0 = --- = no access
-            1 = --x = can execute the file as a program
-            2 = -w- = can write
-            3 = -wx = can write and execute
-            4 = r-- = can read
-            5 = r-x = can read and execute
-            6 = rw- = can read and write
-            7 = rwx = can read, write, execute
+            \033[32m0\033[0m = \033[35m---\033[0m = no access
+            \033[32m1\033[0m = \033[35m--x\033[0m = can execute the file as a program
+            \033[32m2\033[0m = \033[35m-w-\033[0m = can write
+            \033[32m3\033[0m = \033[35m-wx\033[0m = can write and execute
+            \033[32m4\033[0m = \033[35mr--\033[0m = can read
+            \033[32m5\033[0m = \033[35mr-x\033[0m = can read and execute
+            \033[32m6\033[0m = \033[35mrw-\033[0m = can read and write
+            \033[32m7\033[0m = \033[35mrwx\033[0m = can read, write, execute
 
             for directories/folders:
-            0 = --- = no access
-            1 = --x = can read files in folder but not list contents
-            2 = -w- = n/a
-            3 = -wx = can create files but not list
-            4 = r-- = can list, but not read/write
-            5 = r-x = can list and read files
-            6 = rw- = n/a
-            7 = rwx = can read, write, list
+            \033[32m0\033[0m = \033[35m---\033[0m = no access
+            \033[32m1\033[0m = \033[35m--x\033[0m = can read files in folder but not list contents
+            \033[32m2\033[0m = \033[35m-w-\033[0m = n/a
+            \033[32m3\033[0m = \033[35m-wx\033[0m = can create files but not list
+            \033[32m4\033[0m = \033[35mr--\033[0m = can list, but not read/write
+            \033[32m5\033[0m = \033[35mr-x\033[0m = can list and read files
+            \033[32m6\033[0m = \033[35mrw-\033[0m = n/a
+            \033[32m7\033[0m = \033[35mrwx\033[0m = can read, write, list
             """
             ),
         ],
@@ -1056,6 +1057,7 @@ def add_upload(ap):
     ap2.add_argument("--safe-dedup", metavar="N", type=int, default=50, help="how careful to be when deduplicating files; [\033[32m1\033[0m] = just verify the filesize, [\033[32m50\033[0m] = verify file contents have not been altered (volflag=safededup)")
     ap2.add_argument("--hardlink", action="store_true", help="enable hardlink-based dedup; will fallback on symlinks when that is impossible (across filesystems) (volflag=hardlink)")
     ap2.add_argument("--hardlink-only", action="store_true", help="do not fallback to symlinks when a hardlink cannot be made (volflag=hardlinkonly)")
+    ap2.add_argument("--reflink", action="store_true", help="enable reflink-based dedup; will fallback on full copies when that is impossible (non-CoW filesystem) (volflag=reflink)")
     ap2.add_argument("--no-dupe", action="store_true", help="reject duplicate files during upload; only matches within the same volume (volflag=nodupe)")
     ap2.add_argument("--no-clone", action="store_true", help="do not use existing data on disk to satisfy dupe uploads; reduces server HDD reads in exchange for much more network load (volflag=noclone)")
     ap2.add_argument("--no-snap", action="store_true", help="disable snapshots -- forget unfinished uploads on shutdown; don't create .hist/up2k.snap files -- abandoned/interrupted uploads must be cleaned up manually")
@@ -1288,6 +1290,7 @@ def add_stats(ap):
 def add_yolo(ap):
     ap2 = ap.add_argument_group('yolo options')
     ap2.add_argument("--allow-csrf", action="store_true", help="disable csrf protections; let other domains/sites impersonate you through cross-site requests")
+    ap2.add_argument("--cookie-lax", action="store_true", help="allow cookies from other domains (if you follow a link from another website into your server, you will arrive logged-in); this reduces protection against CSRF")
     ap2.add_argument("--getmod", action="store_true", help="permit ?move=[...] and ?delete as GET")
     ap2.add_argument("--wo-up-readme", action="store_true", help="allow users with write-only access to upload logues and readmes without adding the _wo_ filename prefix (volflag=wo_up_readme)")
 
@@ -1335,6 +1338,7 @@ def add_safety(ap):
     ap2.add_argument("--no-robots", action="store_true", help="adds http and html headers asking search engines to not index anything (volflag=norobots)")
     ap2.add_argument("--logout", metavar="H", type=float, default=8086.0, help="logout clients after \033[33mH\033[0m hours of inactivity; [\033[32m0.0028\033[0m]=10sec, [\033[32m0.1\033[0m]=6min, [\033[32m24\033[0m]=day, [\033[32m168\033[0m]=week, [\033[32m720\033[0m]=month, [\033[32m8760\033[0m]=year)")
     ap2.add_argument("--ban-pw", metavar="N,W,B", type=u, default="9,60,1440", help="more than \033[33mN\033[0m wrong passwords in \033[33mW\033[0m minutes = ban for \033[33mB\033[0m minutes; disable with [\033[32mno\033[0m]")
+    ap2.add_argument("--ban-pwc", metavar="N,W,B", type=u, default="5,60,1440", help="more than \033[33mN\033[0m password-changes in \033[33mW\033[0m minutes = ban for \033[33mB\033[0m minutes; disable with [\033[32mno\033[0m]")
     ap2.add_argument("--ban-404", metavar="N,W,B", type=u, default="50,60,1440", help="hitting more than \033[33mN\033[0m 404's in \033[33mW\033[0m minutes = ban for \033[33mB\033[0m minutes; only affects users who cannot see directory listings because their access is either g/G/h")
     ap2.add_argument("--ban-403", metavar="N,W,B", type=u, default="9,2,1440", help="hitting more than \033[33mN\033[0m 403's in \033[33mW\033[0m minutes = ban for \033[33mB\033[0m minutes; [\033[32m1440\033[0m]=day, [\033[32m10080\033[0m]=week, [\033[32m43200\033[0m]=month")
     ap2.add_argument("--ban-422", metavar="N,W,B", type=u, default="9,2,1440", help="hitting more than \033[33mN\033[0m 422's in \033[33mW\033[0m minutes = ban for \033[33mB\033[0m minutes (invalid requests, attempted exploits ++)")
@@ -1565,7 +1569,7 @@ def add_ui(ap, retry):
     ap2.add_argument("--txt-max", metavar="KiB", type=int, default=64, help="max size of embedded textfiles on ?doc= (anything bigger will be lazy-loaded by JS)")
     ap2.add_argument("--doctitle", metavar="TXT", type=u, default="copyparty @ --name", help="title / service-name to show in html documents")
     ap2.add_argument("--bname", metavar="TXT", type=u, default="--name", help="server name (displayed in filebrowser document title)")
-    ap2.add_argument("--pb-url", metavar="URL", type=u, default=URL_PRJ, help="powered-by link; disable with \033[33m-np\033[0m")
+    ap2.add_argument("--pb-url", metavar="URL", type=u, default=URL_PRJ, help="powered-by link; disable with \033[33m-nb\033[0m")
     ap2.add_argument("--ver", action="store_true", help="show version on the control panel (incompatible with \033[33m-nb\033[0m)")
     ap2.add_argument("--k304", metavar="NUM", type=int, default=0, help="configure the option to enable/disable k304 on the controlpanel (workaround for buggy reverse-proxies); [\033[32m0\033[0m] = hidden and default-off, [\033[32m1\033[0m] = visible and default-off, [\033[32m2\033[0m] = visible and default-on")
     ap2.add_argument("--no304", metavar="NUM", type=int, default=0, help="configure the option to enable/disable no304 on the controlpanel (workaround for buggy caching in browsers); [\033[32m0\033[0m] = hidden and default-off, [\033[32m1\033[0m] = visible and default-off, [\033[32m2\033[0m] = visible and default-on")

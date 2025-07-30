@@ -278,6 +278,7 @@ var Ls = {
 		"ml_drc": "dynamic range compressor",
 
 		"mt_loop": "loop/repeat one song\">🔁",
+		"mt_one": "stop after one song\">1️⃣",
 		"mt_shuf": "shuffle the songs in each folder\">🔀",
 		"mt_aplay": "autoplay if there is a song-ID in the link you clicked to access the server$N$Ndisabling this will also stop the page URL from being updated with song-IDs when playing music, to prevent autoplay if these settings are lost but the URL remains\">a▶",
 		"mt_preload": "start loading the next song near the end for gapless playback\">preload",
@@ -295,6 +296,7 @@ var Ls = {
 		"mt_uncache": "clear cache &nbsp;(try this if your browser cached$Na broken copy of a song so it refuses to play)\">uncache",
 		"mt_mloop": "loop the open folder\">🔁 loop",
 		"mt_mnext": "load the next folder and continue\">📂 next",
+		"mt_mstop": "stop playback\">⏸ stop",
 		"mt_cflac": "convert flac / wav to opus\">flac",
 		"mt_caac": "convert aac / m4a to opus\">aac",
 		"mt_coth": "convert all others (not mp3) to opus\">oth",
@@ -527,20 +529,20 @@ var Ls = {
 		"un_fclr": "clear filter",
 		"un_derr": 'unpost-delete failed:\n',
 		"un_f5": 'something broke, please try a refresh or hit F5',
-		"un_uf5": "Sorry, aber du musst die Seite neuladen (z.B. in dem du F5 oder STRG-R drückst) bevor zu diesen Upload abbrechen kannst",
-		"un_nou": '<b>Warnung:</b> Der Server ist grade zu beschäftigt, um unvollständige Uploads anzuzeigen; Drücke den "Neu laden"-Link in ein paar Sekunden',
-		"un_noc": '<b>Warnung:</b> unpost von vollständig hochgeladenen Dateien ist über die Serverkonfiguration gesperrt',
-		"un_max": "Zeige die ersten 2000 Dateien (benutze Filter, um die gewünschten Dateien zu finden)",
-		"un_avail": "{0} zuletzt hochgeladene Dateien können gelöscht werden<br />{1} Unvollständige können abgebrochen werden",
-		"un_m2": "Sortiert nach Upload-Zeitpunkt; neuste zuerst:",
+		"un_uf5": "sorry but you have to refresh the page (for example by pressing F5 or CTRL-R) before this upload can be aborted",
+		"un_nou": '<b>warning:</b> server too busy to show unfinished uploads; click the "refresh" link in a bit',
+		"un_noc": '<b>warning:</b> unpost of fully uploaded files is not enabled/permitted in server config',
+		"un_max": "showing first 2000 files (use the filter)",
+		"un_avail": "{0} recent uploads can be deleted<br />{1} unfinished ones can be aborted",
+		"un_m2": "sorted by upload time; most recent first:",
 		"un_no1": "sike! no uploads are sufficiently recent",
 		"un_no2": "sike! no uploads matching that filter are sufficiently recent",
-		"un_next": "Lösche die nächsten {0} Dateien",
-		"un_abrt": "Abbrechen",
-		"un_del": "Löschen",
-		"un_m3": "Deine letzten Uploads werden geladen ...",
-		"un_busy": "Lösche {0} Dateien ...",
-		"un_clip": "{0} Links in die Zwischenablage kopiert",
+		"un_next": "delete the next {0} files below",
+		"un_abrt": "abort",
+		"un_del": "delete",
+		"un_m3": "loading your recent uploads...",
+		"un_busy": "deleting {0} files...",
+		"un_clip": "{0} links copied to clipboard",
 
 		"u_https1": "you should",
 		"u_https2": "switch to https",
@@ -903,6 +905,7 @@ var Ls = {
 		"ml_drc": "compressor (volum-utjevning)",
 
 		"mt_loop": "spill den samme sangen om og om igjen\">🔁",
+		"mt_one": "spill kun én sang\">1️⃣",
 		"mt_shuf": "sangene i hver mappe$Nspilles i tilfeldig rekkefølge\">🔀",
 		"mt_aplay": "forsøk å starte avspilling hvis linken du klikket på for å åpne nettsiden inneholder en sang-ID$N$Nhvis denne deaktiveres så vil heller ikke nettside-URLen bli oppdatert med sang-ID'er når musikk spilles, i tilfelle innstillingene skulle gå tapt og nettsiden lastes på ny\">a▶",
 		"mt_preload": "hent ned litt av neste sang i forkant,$Nslik at pausen i overgangen blir mindre\">forles",
@@ -920,6 +923,7 @@ var Ls = {
 		"mt_uncache": "prøv denne hvis en sang ikke spiller riktig\">oppfrisk",
 		"mt_mloop": "repeter hele mappen\">🔁 gjenta",
 		"mt_mnext": "hopp til neste mappe og fortsett\">📂 neste",
+		"mt_mstop": "stopp avspilling\">⏸ stopp",
 		"mt_cflac": "konverter flac / wav-filer til opus\">flac",
 		"mt_caac": "konverter aac / m4a-filer til to opus\">aac",
 		"mt_coth": "konverter alt annet (men ikke mp3) til opus\">andre",
@@ -1528,6 +1532,7 @@ var Ls = {
 		"ml_drc": "动态范围压缩器",
 
 		"mt_loop": "循环播放当前的歌曲\">🔁", //m
+		"mt_one": "只播放一首歌后停止\">1️⃣", //m
 		"mt_shuf": "在每个文件夹中随机播放歌曲\">🔀",
 		"mt_aplay": "如果链接中有歌曲 ID，则自动播放,禁用此选项将停止在播放音乐时更新页面 URL 中的歌曲 ID，以防止在设置丢失但 URL 保留时自动播放\">自动播放▶",
 		"mt_preload": "在歌曲快结束时开始加载下一首歌，以实现无缝播放\">预加载",
@@ -1545,6 +1550,7 @@ var Ls = {
 		"mt_uncache": "清除缓存&nbsp;$N（如果你的浏览器缓存了一个损坏的歌曲副本而拒绝播放，请尝试此操作）\">uncache",
 		"mt_mloop": "循环打开的文件夹\">🔁 循环",
 		"mt_mnext": "加载下一个文件夹并继续\">📂 下一首",
+		"mt_mstop": "停止播放\">⏸ 停止", //m
 		"mt_cflac": "将 flac / wav 转换为 opus\">flac",
 		"mt_caac": "将 aac / m4a 转换为 opus\">aac",
 		"mt_coth": "将所有其他（不是 mp3）转换为 opus\">oth",
@@ -2992,6 +2998,7 @@ var mpl = (function () {
 	ebi('op_player').innerHTML = (
 		'<div><h3>' + L.cl_opts + '</h3><div>' +
 		'<a href="#" class="tgl btn" id="au_loop" tt="' + L.mt_loop + '</a>' +
+		'<a href="#" class="tgl btn" id="au_one" tt="' + L.mt_one + '</a>' +
 		'<a href="#" class="tgl btn" id="au_shuf" tt="' + L.mt_shuf + '</a>' +
 		'<a href="#" class="tgl btn" id="au_aplay" tt="' + L.mt_aplay + '</a>' +
 		'<a href="#" class="tgl btn" id="au_preload" tt="' + L.mt_preload + '</a>' +
@@ -3015,6 +3022,7 @@ var mpl = (function () {
 		'<div><h3>' + L.ml_pmode + '</h3><div id="pb_mode">' +
 		'<a href="#" class="tgl btn" m="loop" tt="' + L.mt_mloop + '</a>' +
 		'<a href="#" class="tgl btn" m="next" tt="' + L.mt_mnext + '</a>' +
+		'<a href="#" class="tgl btn" m="stop" tt="' + L.mt_mstop + '</a>' +
 		'</div></div>' +
 
 		(have_acode ? (
@@ -3040,11 +3048,15 @@ var mpl = (function () {
 		'');
 
 	var r = {
-		"pb_mode": (sread('pb_mode', ['loop', 'next']) || 'next').split('-')[0],
+		"pb_mode": (sread('pb_mode', ['loop', 'next', 'stop']) || 'next').split('-')[0],
 		"os_ctl": bcfg_get('au_os_ctl', have_mctl) && have_mctl,
 		'traversals': 0,
 		'm3ut': '#EXTM3U\n',
 	};
+	bcfg_bind(r, 'one', 'au_one', false, function (v) {
+		if (mp.au)
+			mp.au.loop = !v && r.loop;
+	});
 	bcfg_bind(r, 'loop', 'au_loop', false, function (v) {
 		if (mp.au)
 			mp.au.loop = v;
@@ -4294,7 +4306,7 @@ var mpui = (function () {
 		}
 
 		// preload next song
-		if (mpl.preload && preloaded != mp.au.rsrc) {
+		if (!mpl.one && mpl.preload && preloaded != mp.au.rsrc) {
 			var len = mp.au.duration,
 				rem = pos > 1 ? len - pos : 999,
 				full = null;
@@ -4313,7 +4325,12 @@ var mpui = (function () {
 					var oi = mp.order.indexOf(mp.au.tid) + 1,
 						evp = get_evpath();
 
-					if (mpl.pb_mode == 'loop' || mp.au.evp != evp || ebi('unsearch'))
+					if (oi >= mp.order.length && (
+							mpl.one ||
+							mpl.pb_mode != 'next' ||
+							mp.au.evp != evp ||
+							ebi('unsearch'))
+						)
 						oi = 0;
 
 					if (oi >= mp.order.length) {
@@ -4799,6 +4816,9 @@ function play(tid, is_ev, seek) {
 	}
 
 	if (tn >= mp.order.length) {
+		if (mpl.pb_mode == 'stop')
+			return;
+
 		if (mpl.pb_mode == 'loop' || ebi('unsearch')) {
 			tn = 0;
 		}
@@ -4883,7 +4903,7 @@ function play(tid, is_ev, seek) {
 
 	try {
 		mp.nopause();
-		mp.au.loop = mpl.loop;
+		mp.au.loop = mpl.loop && !mpl.one;
 		if (mpl.aplay || is_ev !== -1)
 			mp.au.play();
 
@@ -4929,6 +4949,8 @@ function scroll2playing() {
 
 
 function evau_end(e) {
+	if (mpl.one)
+		return;
 	if (!mpl.loop)
 		return next_song(e);
 	ev(e);
@@ -6650,6 +6672,7 @@ var showfile = (function () {
 			m = /[?&](k=[^&#]+)/.exec(url);
 
 		url = url.split('?')[0] + (m ? '?' + m[1] : '');
+		assert_vp(url);
 		if (r.taildoc)
 			return r.tail(url, no_push);
 
@@ -8068,7 +8091,7 @@ var search_ui = (function () {
 				nodes = ['<tr><td>-</td><td><div>' + links + '</div>', sz];
 
 			for (var b = 0; b < tagord.length; b++) {
-				var k = tagord[b],
+				var k = esc(tagord[b]),
 					v = r.tags[k] || "";
 
 				if (k == ".dur") {
@@ -8077,7 +8100,7 @@ var search_ui = (function () {
 					continue;
 				}
 
-				nodes.push(v);
+				nodes.push(esc('' + v));
 			}
 
 			nodes = nodes.concat([ext, unix2iso(ts)]);
@@ -8144,6 +8167,7 @@ function ev_load_m3u(e) {
 	return false;
 }
 function load_m3u(url) {
+	assert_vp(url);
 	var xhr = new XHR();
 	xhr.open('GET', url, true);
 	xhr.onload = render_m3u;
@@ -8548,6 +8572,17 @@ var treectl = (function () {
 			return toast.err(30, "bad <code>?tree</code> reply;\nexpected json, got this:\n\n" + esc(this.responseText + ''));
 		}
 		r.rendertree(res, this.ts, this.top, this.dst, this.rst);
+
+		if (r.lsc && r.lsc.unlist)
+			r.prunetree(r.lsc);
+	};
+
+	r.prunetree = function (res) {
+		var ptn = new RegExp(res.unlist);
+		var els = QSA('#treeul li>a+a');
+		for (var a = els.length - 1; a >= 0; a--)
+			if (ptn.exec(els[a].textContent) && !els[a].className)
+				els[a].closest('ul').removeChild(els[a].closest('li'));
 	};
 
 	r.rendertree = function (res, ts, top0, dst, rst) {
@@ -8835,6 +8870,8 @@ var treectl = (function () {
 			}
 
 			r.rendertree({ "a": dirs }, this.ts, ".", get_evpath() + (dk ? '?k=' + dk : ''));
+			if (res.unlist)
+				r.prunetree(res);
 		}
 
 		r.gentab(this.top, res);
@@ -8895,6 +8932,7 @@ var treectl = (function () {
 	};
 
 	r.gentab = function (top, res) {
+		showfile.untail();
 		var nodes = res.dirs.concat(res.files),
 			html = mk_files_header(res.taglist),
 			sel = msel.hist[top],
@@ -8915,7 +8953,7 @@ var treectl = (function () {
 		if (res.unlist) {
 			var ptn = new RegExp(res.unlist);
 			for (var a = nodes.length - 1; a >= 0; a--)
-				if (ptn.exec(nodes[a].href.split('?')[0]))
+				if (ptn.exec(uricom_dec(nodes[a].href.split('?')[0])))
 					nodes.splice(a, 1);
 		}
 		nodes = sortfiles(nodes);
@@ -8965,7 +9003,7 @@ var treectl = (function () {
 					top + tn.href + '" id="' + id + '">' + hname + '</a>', tn.sz];
 
 			for (var b = 0; b < res.taglist.length; b++) {
-				var k = res.taglist[b],
+				var k = esc(res.taglist[b]),
 					v = (tn.tags || {})[k] || "",
 					sv = null;
 
@@ -8974,7 +9012,7 @@ var treectl = (function () {
 				else if (k == ".up_at")
 					sv = v ? unix2iso(v) : "";
 				else {
-					ln.push(v);
+					ln.push(esc('' + v));
 					continue;
 				}
 				ln[ln.length - 1] += '</td><td sortv="' + v + '">' + sv;
