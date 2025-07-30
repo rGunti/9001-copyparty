@@ -92,7 +92,49 @@ var Ls = {
 		"ae1": "正在下载：", //m
 		"af1": "显示最近上传的文件", //m
 		"ag1": "查看已知 IdP 用户", //m
-	}
+	},
+
+	"deu": {
+		"a1": "Neu laden",
+		"b1": "Tach, wie geht's? &nbsp; <small>(Du bist nicht angemeldet)</small>",
+		"c1": "Abmelden",
+		"d1": "Zustand",  // TLNote: "d2" is the tooltip for this button
+		"d2": "Zeigt den Zustand aller aktiven Threads",
+		"e1": "Config neu laden",
+		"e2": "Konfigurationsdatei neu laden (Accounts/Volumes/VolFlags)$Nund scannt alle e2ds-Volumes$N$NBeachte: Jegliche Änderung an globalen Einstellungen$Nbenötigt einen Neustart zum Anwenden",
+		"f1": "Du kannst lesen:",
+		"g1": "Du kannst hochladen nach:",
+		"cc1": "Andere Dinge:",
+		"h1": "k304 deaktivieren",  // TLNote: "j1" explains what k304 is
+		"i1": "k304 aktivieren",
+		"j1": "k304 trennt die Clientverbindung bei jedem HTTP 304, was Bugs mit problematischen Proxies vorbeugen kann (z.B. nicht ladenden Seiten), macht Dinge aber generell langsamer",
+		"k1": "Client-Einstellungen zurücksetzen",
+		"l1": "Melde dich an für mehr:",
+		"m1": "Willkommen zurück,",  // TLNote: "welcome back, USERNAME"
+		"n1": "404 Nicht gefunden &nbsp;┐( ´ -`)┌",
+		"o1": 'or maybe you don\'t have access -- try a password or <a href="' + SR + '/?h">go home</a>',
+		"p1": "403 Verboten &nbsp;~┻━┻",
+		"q1": 'Benutze ein Passwort oder <a href="' + SR + '/?h">gehe zur Homepage</a>',
+		"r1": "Gehe zur Homepage",
+		".s1": "Neu scannen",
+		"t1": "Aktion",  // TLNote: this is the header above the "rescan" buttons
+		"u2": "time since the last server write$N( upload / rename / ... )$N$N17d = 17 days$N1h23 = 1 hour 23 minutes$N4m56 = 4 minutes 56 seconds",
+		"v1": "Verbinden",
+		"v2": "Benutze diesen Server als lokale Festplatte",
+		"w1": "Zu HTTPS wechseln",
+		"x1": "Passwort ändern",
+		"y1": "Shares bearbeiten",  // TLNote: shows the list of folders that the user has decided to share
+		"z1": "Share entsperren:",  // TLNote: the password prompt to see a hidden share
+		"ta1": "Trage zuerst dein Passwort ein",
+		"ta2": "Wiederhole dein Passwort zur Bestätigung:",
+		"ta3": "Da stimmt etwas nicht; probier's nochmal",
+		"aa1": "Eingehende Dateien:",
+		"ab1": "no304 deaktivieren",
+		"ac1": "no304 aktivieren",
+		"ad1": "Das Aktivieren von no304 deaktiviert jegliche Form von Caching; probier dies, wenn k304 nicht genug war. Dies verschwendet eine grosse Menge Netzwerk-Traffic!",
+		"ae1": "Aktive Downloads:",
+        "af1": "Zeige neue Uploads",
+	},
 };
 
 if (window.langmod)
