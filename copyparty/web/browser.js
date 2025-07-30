@@ -1883,22 +1883,22 @@ var Ls = {
 
 		"cols": {
 			"c": "Aktionen",
-			"dur": "Länge",
+			"dur": "Dauer",
 			"q": "Qualität / Bitrate",
-			"Ac": "Audio Codec",
-			"Vc": "Video Codec",
+			"Ac": "Audiocodec",
+			"Vc": "Videocodec",
 			"Fmt": "Format / Container",
-			"Ahash": "Audio Checksumme",
-			"Vhash": "Video Checksumme",
+			"Ahash": "Audio-Prüfsumme",
+			"Vhash": "Video-Prüfsumme",
 			"Res": "Auflösung",
 			"T": "Dateityp",
-			"aq": "Audio Qualität / bitrate",
-			"vq": "Video Qualität / bitrate",
+			"aq": "Audioqualität / Bitrate",
+			"vq": "Videoqualität / Bitrate",
 			"pixfmt": "Subsampling / Pixelstruktur",
 			"resw": "horizontale Auflösung",
 			"resh": "vertikale Auflösung",
 			"chs": "Audiokanäle",
-			"hz": "Abtastfrequenz"
+			"hz": "Abtastrate"
 		},
 
 		"hks": [
